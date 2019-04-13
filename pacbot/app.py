@@ -8,5 +8,5 @@ class App:
 
     def start(self):
         self._scene.create()
-        while True:
-            print("Hello World!")
+        while self._scene.is_active():
+            self._scene.update()
