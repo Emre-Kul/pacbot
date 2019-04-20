@@ -9,11 +9,13 @@ import random
 class Area:
 
     def __init__(self):
-        self.size = 0
+        self.height = 0
+        self.width = 0
         self.mtr = []
 
     def create_random_area(self, size):
-        self.size = size
+        self.height = size
+        self.width = size
         self.mtr = [0] * size
         for i in range(size):
             self.mtr[i] = [0] * size
@@ -21,7 +23,8 @@ class Area:
                 self.mtr[i][j] = random.randint(0, 1)
 
     def create_legacy_area(self):
-        self.size = 36
+        self.width = 28
+        self.height = 36
         # https://www.pandadeath.com/making-the-pacman-maze.html
         self.mtr = [
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

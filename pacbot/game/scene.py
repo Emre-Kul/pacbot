@@ -34,3 +34,7 @@ class Scene:
 
     def render_rec(self, color, cords):
         self.pygame.draw.rect(self._scene, color, cords)
+
+    def key_pressed(self, key):
+        pressed = pygame.key.get_pressed()
+        return pressed[key]
