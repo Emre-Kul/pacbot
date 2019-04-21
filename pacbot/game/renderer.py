@@ -15,6 +15,8 @@ class Renderer:
                     self.scene.render_rec((0, 0, 255), (j * self.x_diff, i * self.y_diff, self.x_diff, self.y_diff))
                 if mtr[i][j] == 2:
                     self.scene.render_rec((255, 255, 255), (j * self.x_diff + 10, i * self.y_diff + 10, self.x_diff / 10, self.y_diff / 10))
+                if mtr[i][j] == 3:
+                    self.scene.render_rec((255, 255, 255), (j * self.x_diff + 5, i * self.y_diff + 5, self.x_diff / 2, self.y_diff / 2))
 
 
     def render_bait(self):
