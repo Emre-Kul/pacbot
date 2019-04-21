@@ -11,6 +11,8 @@ class App:
     def start(self):
         self._scene.create()
         while self._scene.is_active():
-            self._scene.clear()
+
+            self._game.handle_input()
             self._game.render()
-            self._scene.update()
+
+
