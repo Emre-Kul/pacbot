@@ -11,7 +11,7 @@ class Game:
         self._area = Area()
         self._area.create_legacy_area()
         self.renderer = Renderer(scene, self._area)
-        self._pacman = PacMan(3, 4)
+        self._pacman = PacMan(13, 26)
         self.score = 0
 
     def render(self):
@@ -20,9 +20,15 @@ class Game:
             self.renderer.render_area()
             self.renderer.render_pac_man(self._pacman)
             self._pacman.move(self._area)
+            self.refresh_area()
             self.scene.update()
         pygame.time.wait(1)
         self.frame = (self.frame + 1) % 60
+
+    def refresh_area(self):
+        pos = self._pacman.position
+        if self._area.mtr[pos[1]][pos[0]] == 2:
+            self._area.mtr[pos[1]][pos[0]] = 1
 
     def handle_input(self):
         if self.scene.key_pressed(pygame.K_UP):

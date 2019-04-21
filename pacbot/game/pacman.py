@@ -5,7 +5,7 @@ class PacMan:
         self.position = [posx, posy]
         self.direction = 0
         self.next_direction = 0
-        pass
+
     # will refactor :D
     def move(self, area):
         np = [[0, 0], [0, -1], [1, 0], [0, 1], [-1, 0]]

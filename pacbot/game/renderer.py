@@ -11,8 +11,10 @@ class Renderer:
         mtr = self.area.mtr
         for i in range(len(mtr)):
             for j in range(len(mtr[i])):
-                if mtr[i][j] != 1:
+                if mtr[i][j] == 0:
                     self.scene.render_rec((0, 0, 255), (j * self.x_diff, i * self.y_diff, self.x_diff, self.y_diff))
+                if mtr[i][j] == 2:
+                    self.scene.render_rec((255, 255, 255), (j * self.x_diff + 10, i * self.y_diff + 10, self.x_diff / 10, self.y_diff / 10))
 
 
     def render_bait(self):
