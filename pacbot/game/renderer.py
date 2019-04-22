@@ -1,14 +1,17 @@
-# this is not a good design
+from pacbot.game.maze import Maze
+from pacbot.game.player import Player
+
+
 class Renderer:
-    def __init__(self, scene, area):
-        self.area = area
+    def __init__(self, scene, maze: Maze):
+        self.maze = maze
         self.scene = scene
-        self.x_diff = self.scene.width/self.area.width
-        self.y_diff = self.scene.height/self.area.height
+        self.x_diff = self.scene.width/self.maze.width
+        self.y_diff = self.scene.height/self.maze.height
         pass
 
-    def render_area(self):
-        mtr = self.area.mtr
+    def render_maze(self):
+        mtr = self.maze.mtr
         for i in range(len(mtr)):
             for j in range(len(mtr[i])):
                 if mtr[i][j] == 0:
@@ -18,13 +21,6 @@ class Renderer:
                 if mtr[i][j] == 3:
                     self.scene.render_rec((255, 255, 255), (j * self.x_diff + 5, i * self.y_diff + 5, self.x_diff / 2, self.y_diff / 2))
 
-
-    def render_bait(self):
-        pass
-
-    def render_gost(self):
-        pass
-
-    def render_pac_man(self, pacman):
-        pos = pacman.position
-        self.scene.render_rec((0, 255, 0), (pos[0] * self.x_diff, pos[1] * self.y_diff, self.x_diff, self.y_diff))
+    def render_player(self, player: Player):
+        pos = player.position
+        self.scene.render_rec(player.color, (pos[0] * self.x_diff, pos[1] * self.y_diff, self.x_diff, self.y_diff))

@@ -1,12 +1,10 @@
-import random
-
 # 0 = wall
 # 1 = path
 # 2 = bait
 # 3 = big_bait
 
 
-class Area:
+class Maze:
 
     def __init__(self):
         self.height = 0
@@ -14,20 +12,11 @@ class Area:
         self.bait_count = 0
         self.mtr = []
 
-    def create_random_area(self, size):
-        self.height = size
-        self.width = size
-        self.mtr = [0] * size
-        for i in range(size):
-            self.mtr[i] = [0] * size
-            for j in range(size):
-                self.mtr[i][j] = random.randint(0, 1)
-
+    # https://www.pandadeath.com/making-the-pacman-maze.html
     def create_legacy_area(self):
         self.width = 28
         self.height = 36
         self.bait_count = 246
-        # https://www.pandadeath.com/making-the-pacman-maze.html
         self.mtr = [
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
