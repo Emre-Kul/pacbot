@@ -33,6 +33,18 @@ class Actor:
                 return idx
         return -1
 
+    def get_next_pos_from_direction(self, pos, direction, step):
+        move = self.moves[direction]
+        new_pos = [pos[0], pos[1]]
+        for i in range(step):
+            a = self.maze.is_avaliable([new_pos[0] + move[0], new_pos[1] + move[1]])
+            if a['avaliable']:
+                new_pos[0] += move[0]
+                new_pos[1] += move[1]
+            else:
+                break
+        return new_pos
+
     def move(self):
         next_direction_move = self.maze.is_avaliable(Actor.sum_pos(self.position, self.moves[self.next_direction]))
         direction_move = self.maze.is_avaliable(Actor.sum_pos(self.position, self.moves[self.direction]))

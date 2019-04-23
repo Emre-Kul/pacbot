@@ -34,20 +34,23 @@ class Game:
         ]
 
     def render(self):
-        if self.frame == 0:
-            self.scene.clear()
-            self.renderer.render_maze()
-            self.renderer.render_actor(self.player)
+        if self.is_finished:
+            return
+        if self.frame % 3 == 0:
+            self.player.move()
+            self.refresh_area()
+        if self.frame % 5 == 0:
             for ghost in self.ghosts:
-                self.renderer.render_actor(ghost)
-            if not self.is_finished:
-                self.player.move()
-                self.refresh_area()
-                for ghost in self.ghosts:
-                    ghost.move()
-            self.scene.update()
+                ghost.move()
+        self.scene.clear()
+        self.renderer.render_maze()
+        self.renderer.render_actor(self.player)
+        for ghost in self.ghosts:
+            self.renderer.render_actor(ghost)
+        self.scene.update()
+
         pygame.time.wait(1)
-        self.frame = (self.frame + 1) % 60
+        self.frame += 1
 
     def refresh_area(self):
         pos = self.player.position
