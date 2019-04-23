@@ -12,9 +12,9 @@ class Blinky(Ghost):
     def chase(self):
         a_star = AStar(self.maze, self.position, self.target.position)
         path = a_star.get_path()
-        d = self.get_direction_from_next_pos(path[1]['pos'])
-        self.change_direction(d)
-        pass
+        if len(path) > 0:
+            d = self.get_direction_from_next_pos(path[0]['pos'])
+            self.change_direction(d)
 
     def scatter(self):
         pass

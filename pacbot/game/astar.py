@@ -31,7 +31,12 @@ class AStar:
                     open_nodes.append({'pos': child, 'parent': len(closed_nodes) - 1, 'cost': cost})
                 elif open_nodes[search_open]['cost'] > cost:
                     open_nodes[search_open]['cost'] = cost
-        return closed_nodes
+        path = []
+        current = closed_nodes[len(closed_nodes) - 1]
+        while current['parent'] != -1:
+            path.append(current)
+            current = closed_nodes[current['parent']]
+        return list(reversed(path))
 
 
     def _least_f_index(self, nodes):
