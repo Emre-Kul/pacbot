@@ -22,35 +22,29 @@ class Actor:
     def possible_directions(self):
         directions = []
         for i in range(len(self.moves)):
-            movement = Actor.can_move(self.maze, [self.moves[i][0], self.moves[i][1]])
-            if movement['can_move']:
+            movement = self.maze.is_avaliable([self.moves[i][0], self.moves[i][1]])
+            if movement['avaliable']:
                 directions.append(i)
         return directions
 
+    def get_direction_from_next_pos(self, next_pos):
+        for idx, move in enumerate(self.moves):
+            if self.position[0] + move[0] == next_pos[0] and self.position[1] + move[1] == next_pos[1]:
+                return idx
+        return -1
+
     def move(self):
-        next_direction_move = Actor.can_move(self.maze, Actor.sum_pos(self.position, self.moves[self.next_direction]))
-        direction_move = Actor.can_move(self.maze, Actor.sum_pos(self.position, self.moves[self.direction]))
+        next_direction_move = self.maze.is_avaliable(Actor.sum_pos(self.position, self.moves[self.next_direction]))
+        direction_move = self.maze.is_avaliable(Actor.sum_pos(self.position, self.moves[self.direction]))
         self.moving = True
-        if next_direction_move['can_move']:
+        if next_direction_move['avaliable']:
             self.direction = self.next_direction
             self.position = next_direction_move['new_pos']
-        elif direction_move['can_move']:
+        elif direction_move['avaliable']:
             self.position = direction_move['new_pos']
         else:
             self.moving = False
             self.direction = self.next_direction
-
-    @staticmethod
-    def can_move(maze: Maze, pos):
-        if pos[0] < 0:
-            pos[0] = maze.width - 1
-        if pos[0] >= maze.width:
-            pos[0] = 0
-        if pos[1] < 0:
-            pos[1] = maze.height - 1
-        if pos[1] >= maze.height:
-            pos[1] = 0
-        return {'can_move': 0 != maze.mtr[pos[1]][pos[0]], 'new_pos': pos}
 
     @staticmethod
     def sum_pos(pos1, pos2):

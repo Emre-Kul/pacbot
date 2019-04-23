@@ -12,6 +12,26 @@ class Maze:
         self.bait_count = 0
         self.mtr = []
 
+    def get_avaliable_pos(self, pos):
+        moves = [-1, 0], [0, -1], [1, 0], [0, 1]
+        avaliables = []
+        for move in moves:
+            avaliable_move = self.is_avaliable([pos[0] + move[0], pos[1] + move[1]])
+            if avaliable_move['avaliable']:
+                avaliables.append(avaliable_move['new_pos'])
+        return avaliables
+
+    def is_avaliable(self, pos):
+        if pos[0] < 0:
+            pos[0] = self.width - 1
+        if pos[0] >= self.width:
+            pos[0] = 0
+        if pos[1] < 0:
+            pos[1] = self.height - 1
+        if pos[1] >= self.height:
+            pos[1] = 0
+        return {'avaliable': 0 != self.mtr[pos[1]][pos[0]], 'new_pos': pos}
+
     # https://www.pandadeath.com/making-the-pacman-maze.html
     def create_legacy_area(self):
         self.width = 28
