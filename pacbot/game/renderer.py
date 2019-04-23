@@ -1,5 +1,5 @@
+from pacbot.game.actor import Actor
 from pacbot.game.maze import Maze
-from pacbot.game.player import Player
 
 
 class Renderer:
@@ -21,6 +21,6 @@ class Renderer:
                 if mtr[i][j] == 3:
                     self.scene.render_rec((255, 255, 255), (j * self.x_diff + 5, i * self.y_diff + 5, self.x_diff / 2, self.y_diff / 2))
 
-    def render_player(self, player: Player):
-        pos = player.position
-        self.scene.render_rec(player.color, (pos[0] * self.x_diff, pos[1] * self.y_diff, self.x_diff, self.y_diff))
+    def render_actor(self, actor: Actor):
+        pos = actor.position
+        self.scene.render_rec(actor.color, (pos[0] * self.x_diff, pos[1] * self.y_diff, self.x_diff, self.y_diff))

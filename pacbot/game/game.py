@@ -1,7 +1,9 @@
-from pacbot.game.chase_random import ChaseRandom
-from pacbot.game.ghost import Ghost
+from pacbot.game.blinky import Blinky
+from pacbot.game.clyde import Clyde
+from pacbot.game.inky import Inky
 from pacbot.game.maze import Maze
-from pacbot.game.pacman import PacMan
+from pacbot.game.pinky import Pinky
+from pacbot.game.player import Player
 from pacbot.game.renderer import Renderer
 import pygame
 
@@ -14,23 +16,32 @@ class Game:
         self.maze = Maze()
         self.maze.create_legacy_area()
         self.renderer = Renderer(scene, self.maze)
-        self.pac_man = PacMan(13, 26, self.maze)
+        self.player = Player(13, 26, self.maze)
         self.ghosts = self.create_ghosts()
         self.score = 0
         self.is_finished = False
 
     def create_ghosts(self):
-        return [Ghost(15, 26, self.pac_man, self.maze, ChaseRandom())]
+        # g = []
+        # for i in range(20):
+        #    g.append(Ghost(13, 14, self.pac_man, self.maze, ChaseRandom()))
+        # return g
+        return [
+            Clyde(self.player, self.maze),
+            Inky(self.player, self.maze),
+            Blinky(self.player, self.maze),
+            Pinky(self.player, self.maze)
+        ]
 
     def render(self):
         if self.frame == 0:
             self.scene.clear()
             self.renderer.render_maze()
-            self.renderer.render_player(self.pac_man)
+            self.renderer.render_actor(self.player)
             for ghost in self.ghosts:
-                self.renderer.render_player(ghost)
+                self.renderer.render_actor(ghost)
             if not self.is_finished:
-                self.pac_man.move()
+                self.player.move()
                 self.refresh_area()
                 for ghost in self.ghosts:
                     ghost.move()
@@ -39,7 +50,7 @@ class Game:
         self.frame = (self.frame + 1) % 60
 
     def refresh_area(self):
-        pos = self.pac_man.position
+        pos = self.player.position
         if self.maze.mtr[pos[1]][pos[0]] > 1:
             self.maze.mtr[pos[1]][pos[0]] = 1
             self.maze.bait_count -= 1
@@ -49,14 +60,14 @@ class Game:
             self.is_finished = True
 
     def handle_input(self):
-        if self.scene.key_pressed(pygame.K_UP):
-            self.pac_man.change_direction(1)
-        if self.scene.key_pressed(pygame.K_RIGHT):
-            self.pac_man.change_direction(2)
-        if self.scene.key_pressed(pygame.K_DOWN):
-            self.pac_man.change_direction(3)
         if self.scene.key_pressed(pygame.K_LEFT):
-            self.pac_man.change_direction(4)
+            self.player.change_direction(0)
+        if self.scene.key_pressed(pygame.K_UP):
+            self.player.change_direction(1)
+        if self.scene.key_pressed(pygame.K_RIGHT):
+            self.player.change_direction(2)
+        if self.scene.key_pressed(pygame.K_DOWN):
+            self.player.change_direction(3)
 
     def control(self):
         pass
