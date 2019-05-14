@@ -41,7 +41,6 @@ class Game:
     def run(self):
         if self.is_finished:
             return
-
         if self.frame % 3 == 0:
             self.player.move()
             self.refresh_maze()
@@ -58,7 +57,6 @@ class Game:
         for ghost in self.ghosts:
             self.renderer.render_actor(ghost)
         self.scene.update()
-        # pygame.time.wait(1)
 
     def refresh_maze(self):
         pos = self.player.position

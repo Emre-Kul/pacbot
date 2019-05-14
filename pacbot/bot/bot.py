@@ -2,7 +2,7 @@ from random import *
 
 
 class Bot:
-    def __init__(self, gen_size=4):
+    def __init__(self, gen_size):
         self.pop_size = 1000
         self.gen_size = gen_size
         self.populations = []
@@ -19,7 +19,7 @@ class Bot:
                 self.populations.append(self.crosover_bests())
 
     def create_first_generation(self):
-        for i in range(self.gen_size ):
+        for i in range(self.gen_size):
             self.populations.append(self.create_population())
 
     def create_population(self):
@@ -29,8 +29,6 @@ class Bot:
         return population
 
     def kill_worst_populations(self):
-        # kill half of them
-        # print(self.populations)
         if len(self.populations) > 0:
             new_gen = sorted(self.populations, key=lambda k: k['score'])
             new_gen.reverse()
@@ -45,7 +43,17 @@ class Bot:
     def crosover_bests(self):
         path = []
         if len(self.populations) >= 2:
-            for i in range(self.pop_size):
+            best_paths = [self.populations[0]['path'], self.populations[1]['path']]
+            for i in range(min(len(best_paths[0]), len(best_paths[1]))):
                 rand = randint(0, 1)
-                path.append(self.populations[rand]['path'][i])
+                path.append(best_paths[rand][i])
+
+            if len(best_paths[0]) < len(best_paths[1]):
+                path = path + best_paths[1][len(best_paths[0]):len(best_paths[1])]
+            else:
+                path = path + best_paths[0][len(best_paths[1]):len(best_paths[0])]
+
+        # burayı kaldırmam gerekebilir crosoverın ruhuna aykırı
+        path = (path + self.create_population()['path'])[:self.pop_size]
+
         return {'path': path, 'score': 0}
