@@ -39,6 +39,7 @@ class Game:
         self.ghosts = self.create_ghosts()
 
     def run(self):
+        self.control_collision()
         if self.is_finished:
             return
         if self.frame % 3 == 0:
@@ -47,7 +48,6 @@ class Game:
         if self.frame % 5 == 0:
             for ghost in self.ghosts:
                 ghost.move()
-        self.control_collision()
         self.frame += 1
 
     def render(self):
@@ -78,6 +78,9 @@ class Game:
             self.player.change_direction(key)
             return
         self._handle_keyboard()
+
+    def is_player_moved(self):
+        return self.player.direction == self.player.next_direction
 
     def _handle_keyboard(self):
         if self.scene.key_pressed(pygame.K_LEFT):

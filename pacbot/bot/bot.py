@@ -3,7 +3,7 @@ from random import *
 
 class Bot:
     def __init__(self, gen_size):
-        self.pop_size = 1000
+        self.pop_size = 250
         self.gen_size = gen_size
         self.populations = []
         pass
@@ -24,8 +24,14 @@ class Bot:
 
     def create_population(self):
         population = {'path': [], 'score': 0}
-        for i in range(self.pop_size):
-            population['path'].append(randint(0, 3))
+        population['path'].append(randint(0, 3))
+        i = 1
+        while i < self.pop_size - 1:
+            poss = [0, 1, 2, 3]
+            poss.remove(population['path'][i - 1])
+            rand_move = poss[randint(0, len(poss) - 1)]
+            population['path'].append(rand_move)
+            i += 1
         return population
 
     def kill_worst_populations(self):
