@@ -11,7 +11,7 @@ class Clyde(Ghost):
 
     def chase(self):
         target_pos = self.get_next_pos_from_direction(self.target.position, self.target.direction, 4)
-        a_star = AStar(self.maze, self.position, [target_pos[1], target_pos[1]])
+        a_star = AStar(self.maze, self.position, [target_pos[1], target_pos[0]])
         path = a_star.get_path()
         if len(path) > 0:
             d = self.get_direction_from_next_pos(path[0]['pos'])
