@@ -24,8 +24,8 @@ class Game:
 
     def create_ghosts(self):
         return [
-            # Clyde(self.player, self.maze), # clyde is random will be fixed
-            # Inky(self.player, self.maze),
+            Clyde(self.player, self.maze),
+            Inky(self.player, self.maze),
             Blinky(self.player, self.maze),
             Pinky(self.player, self.maze)
         ]
@@ -61,10 +61,12 @@ class Game:
     def refresh_maze(self):
         pos = self.player.position
         if self.maze.mtr[pos[1]][pos[0]] > 1:
+            if self.maze.mtr[pos[1]][pos[0]] == 2:
+                self.score += 1
+            else:
+                self.score += 10
             self.maze.mtr[pos[1]][pos[0]] = 1
             self.maze.bait_count -= 1
-            self.score += 10
-
         if self.maze.bait_count <= 0:
             self.is_finished = True
 

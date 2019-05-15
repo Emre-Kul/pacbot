@@ -7,7 +7,7 @@ from pacbot.game.maze import Maze
 class Blinky(Ghost):
 
     def __init__(self, target: Actor, maze: Maze):
-        super().__init__(13, 14, (255, 0, 0), target, maze)
+        super().__init__(17, 14, (255, 0, 0), target, maze)
 
     def chase(self):
         a_star = AStar(self.maze, self.position, self.target.position)
