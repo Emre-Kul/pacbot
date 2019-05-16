@@ -24,8 +24,8 @@ class Game:
 
     def create_ghosts(self):
         return [
-            Clyde(self.player, self.maze),
-            Inky(self.player, self.maze),
+            # Clyde(self.player, self.maze),
+            # Inky(self.player, self.maze),
             Blinky(self.player, self.maze),
             Pinky(self.player, self.maze)
         ]

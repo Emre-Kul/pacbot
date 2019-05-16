@@ -13,6 +13,7 @@ def load_config(filename):
     # TODO : Will add error checks for configs etc
     config['SIMILATION_COUNT'] = int(config['SIMILATION_COUNT'])
     config['GENERATION_SIZE'] = int(config['GENERATION_SIZE'])
+    config['MUTATION_RATE'] = float(config['MUTATION_RATE'])
     config['RENDER_BEST_POPULATION_COUNT'] = int(config['RENDER_BEST_POPULATION_COUNT'])
     return config
 

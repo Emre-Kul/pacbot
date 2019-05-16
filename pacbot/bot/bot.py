@@ -2,7 +2,8 @@ from random import *
 
 
 class Bot:
-    def __init__(self, gen_size):
+    def __init__(self, gen_size, mutation_rate=0):
+        self.mutation_rate = mutation_rate
         self.pop_size = 250
         self.gen_size = gen_size
         self.populations = []
@@ -13,10 +14,11 @@ class Bot:
             self.create_first_generation()
         else:
             self.kill_worst_populations()
-            for i in range(self.gen_size - len(self.populations) - 2):
-                self.populations.append(self.create_population())
-            for i in range(2):
-                self.populations.append(self.crosover_bests())
+            for i in range(self.gen_size - len(self.populations)):
+                new_population = self.crosover_bests()
+                self.mutate(new_population)
+                new_population['path'] = (new_population['path'] + self.create_population()['path'])[:self.pop_size]
+                self.populations.append(new_population)
 
     def create_first_generation(self):
         for i in range(self.gen_size):
@@ -40,11 +42,13 @@ class Bot:
             new_gen.reverse()
             self.populations = new_gen[:2]
 
-    def fitness_func(self):
-        pass
+    def fitness_func(self, population):
+        return population['score']
 
-    def mutate(self):
-        pass
+    def mutate(self, population):
+        for idx in range(len(population['path'])):
+            if uniform(0, 1) < self.mutation_rate:
+                population['path'][idx] = randint(0, 3)
 
     def crosover_bests(self):
         path = []
@@ -58,8 +62,5 @@ class Bot:
                 path = path + best_paths[1][len(best_paths[0]):len(best_paths[1])]
             else:
                 path = path + best_paths[0][len(best_paths[1]):len(best_paths[0])]
-
-        # burayı kaldırmam gerekebilir crosoverın ruhuna aykırı
-        path = (path + self.create_population()['path'])[:self.pop_size]
 
         return {'path': path, 'score': 0}

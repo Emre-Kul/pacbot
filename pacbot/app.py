@@ -9,7 +9,7 @@ class App:
     def __init__(self):
         self.config = utils.load_config('config.json')
         self._scene = Scene()
-        self.bot = Bot(self.config['GENERATION_SIZE'])
+        self.bot = Bot(self.config['GENERATION_SIZE'], self.config['MUTATION_RATE'])
         self._game = Game(self._scene)
         self.save_data = []
 
