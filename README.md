@@ -1,8 +1,17 @@
 # AI Project
 ### Bot which can play pacman using genetic algorithm.
 # INSTALATION 
-
+````
+pip3 install pygame
+````
 # RUN
+`````
+python3 main.py 
+`````
+# RUN REPLAY(saved data)
+`````
+python3 main.py replay
+`````
 
 # CONFIG
  * SIMILATION_COUNT : min 0
